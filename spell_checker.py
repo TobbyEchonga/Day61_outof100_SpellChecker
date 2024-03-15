@@ -1,11 +1,29 @@
+import enchant
 
-    # Spell Checker in Python
+# Initialize the enchant spell checker
+spell_checker = enchant.Dict("en_US")
 
-    This Python script implements a spell checker application.
+def check_spelling(word):
+    return spell_checker.check(word)
 
-    ## Usage
-    - Run `spell_checker.py` in your Python environment to start the spell checker.
-    - The script will prompt you to enter a text and then check for spelling errors.
+def suggest_corrections(word):
+    return spell_checker.suggest(word)
 
-    Feel free to customize and enhance the Spell Checker script!
-    
+if __name__ == "__main__":
+    while True:
+        word = input("Enter a word to check its spelling (or type 'exit' to quit): ").strip()
+        if word.lower() == "exit":
+            print("Spell checker terminated.")
+            break
+
+        if check_spelling(word):
+            print("Spelling is correct!")
+        else:
+            print("Spelling is incorrect.")
+            suggestions = suggest_corrections(word)
+            if suggestions:
+                print("Suggestions:")
+                for suggestion in suggestions:
+                    print(suggestion)
+            else:
+                print("No suggestions available.")
